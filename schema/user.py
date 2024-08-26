@@ -12,6 +12,5 @@ class Roles(Enum):
     admin = "admin"
     #is_active:bool=False 
     #role:Roles = "user"
-
     class Config:
         orm_mode = True
