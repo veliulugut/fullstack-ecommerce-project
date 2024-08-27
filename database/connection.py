@@ -7,8 +7,6 @@ import psycopg2 as db
 
 load_dotenv()
 
-load_dotenv()
-
 # Çevre değişkenlerini alın
 POSTGRES_USER = os.getenv("POSTGRES_USER")
 POSTGRES_PASSWORD = os.getenv("POSTGRES_PASSWORD")
