@@ -1,7 +1,7 @@
 from fastapi import APIRouter,Depends,Form,HTTPException
 from sqlalchemy.orm import Session
 from database.connection import sess_db
-
+from security.secur import get_password_hash
 
 #Repository
 from repository.user import UserRepository
@@ -19,7 +19,7 @@ def signup_user(db:Session=Depends(sess_db),username : str = Form(),email:str=Fo
     if db_user:
         return "username is not valid"
     
-    signup = UserModel(email = email,username = username,password = password)
+    signup = UserModel(email = email,username = username,password = get_password_hash(password))
     success = userRepository.create_user(signup)
     if success:
         return "create user successfully"
