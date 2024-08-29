@@ -12,6 +12,7 @@ class UserRepository:
              self.sess.add(signup)
              self.sess.commit()
         except:
+            self.sess.rollback()
             return False
         
         return True
@@ -26,12 +27,16 @@ class UserRepository:
     def get_user_by_username(self,username:str):
         return self.sess.query(UserModel).filter(UserModel.username == username).first()
     
+    def get_user_by_email(self,email:str):
+        return self.sess.query(UserModel).filter(UserModel.email == email).first()
+    
     def update_user(self,id:int,details:Dict[str,Any])-> bool:
         try:
             self.sess.query(UserModel).filter(UserModel.id == id).update(details)
             self.sess.commit()
             
         except:
+            self.sess.rollback()
             return False
         
         return True
@@ -41,6 +46,7 @@ class UserRepository:
             self.sess.query(UserModel).filter(UserModel.id == id).delete()
             self.sess.commit()
         except:
+            self.sess.rollback()
             return False
         
         return True
